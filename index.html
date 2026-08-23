@@ -10,7 +10,7 @@
     <style>
         @keyframes pulseGlow {
             0%, 100% { box-shadow: 0 0 35px rgba(20, 184, 166, 0.7); transform: scale(1); }
-            50% { box-shadow: 0 0 70px rgba(20, 184, 166, 1); transform: scale(1.04); }
+            50% { box-shadow: 0 0 70px rgba(20, 184, 166, 1); transform: scale(1.05); }
         }
         .glowing-element { animation: pulseGlow 2.5s infinite ease-in-out; }
 
@@ -20,7 +20,6 @@
         }
         .globe-spin { animation: spinGlobe 20s linear infinite; }
 
-        /* Professional Realistic Archer Target Hit Animation */
         @keyframes realisticArcherHit {
             0% { transform: translateX(-200px) translateY(50px) scale(0.2); opacity: 0; }
             30% { opacity: 1; transform: translateX(-100px) translateY(25px) scale(0.6); }
@@ -31,32 +30,34 @@
         }
         .pro-archer-animation { animation: realisticArcherHit 2.5s infinite cubic-bezier(0.25, 1, 0.5, 1); }
 
-        @keyframes driveTruckSmooth {
-            0% { transform: translateX(-130%); }
-            100% { transform: translateX(130vw); }
+        /* Large & Clear Professional Logistics Truck Moving Animation */
+        @keyframes driveLargeTruck {
+            0% { transform: translateX(-140%); }
+            100% { transform: translateX(140vw); }
         }
-        .truck-animation-track {
+        .large-truck-track {
             position: relative;
             width: 100%;
-            height: 100px;
+            height: 120px;
             overflow: hidden;
-            background: linear-gradient(90deg, rgba(15,23,42,0.95) 0%, rgba(20,184,166,0.25) 50%, rgba(15,23,42,0.95) 100%);
-            border: 2px solid rgba(20,184,166,0.6);
-            border-radius: 16px;
-            margin: 2.5rem 0;
+            background: linear-gradient(90deg, rgba(15,23,42,0.98) 0%, rgba(20,184,166,0.3) 50%, rgba(15,23,42,0.98) 100%);
+            border: 3px solid rgba(20,184,166,0.7);
+            border-radius: 20px;
+            margin: 3rem 0;
             display: flex;
             align-items: center;
+            box-shadow: inset 0 0 30px rgba(20,184,166,0.2);
         }
-        .moving-cargo-truck {
+        .large-moving-truck {
             position: absolute;
-            animation: driveTruckSmooth 5s linear infinite;
+            animation: driveLargeTruck 6s linear infinite;
             display: flex;
             align-items: center;
             background: #090d16;
-            border: 2px solid #2dd4bf;
-            padding: 12px 24px;
-            border-radius: 12px;
-            box-shadow: 0 0 25px rgba(45, 212, 191, 0.8);
+            border: 3px solid #2dd4bf;
+            padding: 16px 28px;
+            border-radius: 14px;
+            box-shadow: 0 0 35px rgba(45, 212, 191, 0.9);
         }
     </style>
 </head>
@@ -77,13 +78,13 @@
         </div>
     </div>
 
-    <!-- Header Section with Large Circular Blinking Assam Map Logo -->
+    <!-- Header Section with Only Large Circular Blinking Assam Map Logo (No text) -->
     <header class="bg-slate-900/90 backdrop-blur-md border-b border-slate-800 sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-col md:flex-row justify-between items-center">
             <div class="flex items-center space-x-4 mb-3 md:mb-0">
-                <!-- Large Circular Blinking Assam Map Logo -->
-                <div class="relative w-14 h-14 rounded-full bg-gradient-to-tr from-teal-950 via-teal-900 to-teal-700 border-2 border-teal-400 glowing-element flex items-center justify-center shadow-xl p-1">
-                    <svg viewBox="0 0 24 24" fill="currentColor" class="w-9 h-9 text-yellow-300 animate-pulse">
+                <!-- Large Circular Blinking Assam Map Logo Without Any Text -->
+                <div class="relative w-14 h-14 rounded-full bg-gradient-to-tr from-teal-950 via-teal-900 to-teal-700 border-2 border-teal-400 glowing-element flex items-center justify-center shadow-xl p-1.5">
+                    <svg viewBox="0 0 24 24" fill="currentColor" class="w-10 h-10 text-yellow-300 animate-pulse">
                         <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
                     </svg>
                 </div>
@@ -101,7 +102,7 @@
         </div>
     </header>
 
-    <!-- Hero Section with Large Globe, Realistic Archer Target Hit & Truck Animation -->
+    <!-- Hero Section with Large Globe, Realistic Archer Target Hit & Large Truck Animation -->
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 flex-grow">
         <div class="text-center max-w-4xl mx-auto mb-16">
             
@@ -130,13 +131,13 @@
                 An advanced logistics aggregator and command hub built to bridge pincode vacuums, predict remote zone disruptions, and optimize last-mile connectivity through next-gen AI.
             </p>
 
-            <!-- Professional Large Moving Logistics Truck Animation Track -->
-            <div class="truck-animation-track">
-                <div class="moving-cargo-truck space-x-4">
-                    <i class="fa-solid fa-truck-fast text-teal-400 text-4xl animate-bounce"></i>
+            <!-- Large & Clear Professional Moving Logistics Truck Animation Track -->
+            <div class="large-truck-track">
+                <div class="large-moving-truck space-x-5">
+                    <i class="fa-solid fa-truck-fast text-teal-400 text-5xl animate-bounce"></i>
                     <div class="text-left">
-                        <p class="text-sm font-black text-teal-300 uppercase tracking-wider">AxomOps Fleet Express</p>
-                        <p class="text-xs text-slate-200 font-semibold">Hill Terrain Transit & Last-Mile Delivery Active</p>
+                        <p class="text-base font-black text-teal-300 uppercase tracking-wider">AXOMOPS CARGO FLEET EXPRESS</p>
+                        <p class="text-xs text-slate-200 font-bold">Hill Terrain Transit & Last-Mile Delivery Active</p>
                     </div>
                 </div>
             </div>
