@@ -6,6 +6,28 @@
     <title>AxomOps AI | Enterprise Logistics Intelligence & Command Hub</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @keyframes pulseGlow {
+            0%, 100% { box-shadow: 0 0 15px rgba(20, 184, 166, 0.6); transform: scale(1); }
+            50% { box-shadow: 0 0 30px rgba(20, 184, 166, 1); transform: scale(1.05); }
+        }
+        .glowing-logo { animation: pulseGlow 2s infinite; }
+        
+        @keyframes arrowShoot {
+            0% { transform: translateX(-30px); opacity: 0; }
+            50% { opacity: 1; }
+            100% { transform: translateX(30px); opacity: 0; }
+        }
+        .shooting-arrow { animation: arrowShoot 1.5s infinite ease-in-out; }
+
+        @keyframes truckMove {
+            0% { transform: translateX(-50px); opacity: 0.3; }
+            50% { opacity: 1; }
+            100% { transform: translateX(50px); opacity: 0.3; }
+        }
+        .moving-truck { animation: truckMove 3s infinite linear; }
+    </style>
 </head>
 <body class="bg-slate-950 text-slate-100 font-sans antialiased min-h-screen flex flex-col justify-between">
 
@@ -32,7 +54,10 @@
     <header class="bg-slate-900/80 backdrop-blur-md border-b border-slate-800 sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-col md:flex-row justify-between items-center">
             <div class="flex items-center space-x-3 mb-3 md:mb-0">
-                <div class="bg-teal-500 text-slate-950 font-black px-3 py-1.5 rounded-lg text-xl tracking-wider shadow-lg shadow-teal-500/20">AO</div>
+                <!-- Glowing Logo Animation -->
+                <div class="bg-teal-500 text-slate-950 font-black px-3 py-1.5 rounded-lg text-xl tracking-wider shadow-lg glowing-logo flex items-center justify-center">
+                    <i class="fa-solid fa-mountain text-slate-950 mr-1"></i> AO
+                </div>
                 <div>
                     <h1 class="text-2xl font-extrabold tracking-tight text-white">AxomOps <span class="text-teal-400">AI</span></h1>
                     <p class="text-xs text-slate-400 uppercase tracking-widest font-semibold">Enterprise Logistics & Remote Intelligence</p>
@@ -49,7 +74,20 @@
 
     <!-- Hero Section -->
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 flex-grow">
-        <div class="text-center max-w-3xl mx-auto mb-16">
+        <div class="text-center max-w-3xl mx-auto mb-16 relative">
+            
+            <!-- Moving Truck & Arrow Target Animation Banner Badge -->
+            <div class="flex justify-center items-center space-x-6 mb-6">
+                <div class="bg-slate-900/80 border border-teal-500/40 px-4 py-2 rounded-full text-xs text-teal-300 flex items-center space-x-2 shadow-lg">
+                    <i class="fa-solid fa-bullseye text-red-500 shooting-arrow"></i>
+                    <span class="font-semibold tracking-wider">Precision Hill Targeting Active</span>
+                </div>
+                <div class="bg-slate-900/80 border border-teal-500/40 px-4 py-2 rounded-full text-xs text-yellow-300 flex items-center space-x-2 shadow-lg">
+                    <i class="fa-solid fa-truck-fast text-teal-400 moving-truck"></i>
+                    <span class="font-semibold tracking-wider">Terrain Fleet Moving</span>
+                </div>
+            </div>
+
             <h2 class="text-4xl sm:text-5xl font-black tracking-tight text-white mb-6">
                 Redefining Supply Chain Intelligence in <span class="text-teal-400">Complex Terrains</span>
             </h2>
@@ -59,7 +97,7 @@
             <div class="flex flex-wrap justify-center gap-4">
                 <div class="bg-slate-900 border border-slate-800 px-6 py-3 rounded-xl text-center">
                     <p class="text-2xl font-bold text-teal-400">16 Core</p>
-                    <p class="text-xs text-slate-400 uppercase">Enterprise Features</p>
+                    <p class="text-xs text-slate-400 uppercase">Interactive Features</p>
                 </div>
                 <div class="bg-slate-900 border border-slate-800 px-6 py-3 rounded-xl text-center">
                     <p class="text-2xl font-bold text-teal-400">AI-Driven</p>
@@ -72,99 +110,97 @@
             </div>
         </div>
 
-        <!-- 16 Features Grid Section -->
+        <!-- 16 Features Grid Section (Fully Clickable & Functional) -->
         <div id="features" class="mb-12">
-            <h3 class="text-2xl font-bold text-white mb-8 border-l-4 border-teal-500 pl-3">Core Enterprise Architecture & Features (16 Modules)</h3>
+            <h3 class="text-2xl font-bold text-white mb-8 border-l-4 border-teal-500 pl-3">Core Enterprise Architecture & Features (16 Modules - Clickable)</h3>
             
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- Feature 1 -->
-                <div class="bg-slate-900/60 border border-slate-800/80 p-6 rounded-2xl hover:border-teal-500/50 transition duration-300">
-                    <div class="text-teal-400 text-xl font-bold mb-2">01. Live News & Ticker Bar</div>
-                    <p class="text-slate-400 text-sm">Real-time broadcasting updates and live system announcements integrated directly into the command dashboard.</p>
-                </div>
-                <!-- Feature 2 -->
-                <div class="bg-slate-900/60 border border-slate-800/80 p-6 rounded-2xl hover:border-teal-500/50 transition duration-300">
-                    <div class="text-teal-400 text-xl font-bold mb-2">02. Global & Regional Pincode Intelligence</div>
-                    <p class="text-slate-400 text-sm">Deep geographical database mapping standard and remote delivery pin codes instantly.</p>
-                </div>
-                <!-- Feature 3 -->
-                <div class="bg-slate-900/60 border border-slate-800/80 p-6 rounded-2xl hover:border-teal-500/50 transition duration-300">
-                    <div class="text-teal-400 text-xl font-bold mb-2">03. Instant Carrier Search & Matrix</div>
-                    <p class="text-slate-400 text-sm">Quick sorting and filtering matrix for multi-carrier availability and pricing comparison.</p>
-                </div>
-                <!-- Feature 4 -->
-                <div class="bg-slate-900/60 border border-slate-800/80 p-6 rounded-2xl hover:border-teal-500/50 transition duration-300">
-                    <div class="text-teal-400 text-xl font-bold mb-2">04. Last-Mile Micro-Hub Bridge</div>
-                    <p class="text-slate-400 text-sm">Bridging operational blind spots in unserviceable deep rural and hilly terrains.</p>
-                </div>
-                <!-- Feature 5 -->
-                <div class="bg-slate-900/60 border border-slate-800/80 p-6 rounded-2xl hover:border-teal-500/50 transition duration-300">
-                    <div class="text-teal-400 text-xl font-bold mb-2">05. Authorized Admin Directory</div>
-                    <p class="text-slate-400 text-sm">Direct contact channels with verified logistics nodal officers and field managers.</p>
-                </div>
-                <!-- Feature 6 -->
-                <div class="bg-slate-900/60 border border-slate-800/80 p-6 rounded-2xl hover:border-teal-500/50 transition duration-300">
-                    <div class="text-teal-400 text-xl font-bold mb-2">06. Live SMS & WhatsApp Generator</div>
-                    <p class="text-slate-400 text-sm">Automated instant tracking link creation for direct client updates via messaging apps.</p>
-                </div>
-                <!-- Feature 7 -->
-                <div class="bg-slate-900/60 border border-slate-800/80 p-6 rounded-2xl hover:border-teal-500/50 transition duration-300">
-                    <div class="text-teal-400 text-xl font-bold mb-2">07. AI Landslide & Terrain Predictor</div>
-                    <p class="text-slate-400 text-sm">Predictive alerts for mountainous weather hazards and tea garden geofencing grids.</p>
-                </div>
-                <!-- Feature 8 -->
-                <div class="bg-slate-900/60 border border-slate-800/80 p-6 rounded-2xl hover:border-teal-500/50 transition duration-300">
-                    <div class="text-teal-400 text-xl font-bold mb-2">08. Cross-Border P2P Pooling</div>
-                    <p class="text-slate-400 text-sm">Collaborative peer-to-peer carrier resource sharing across regional boundaries.</p>
-                </div>
-                <!-- Feature 9 -->
-                <div class="bg-slate-900/60 border border-slate-800/80 p-6 rounded-2xl hover:border-teal-500/50 transition duration-300">
-                    <div class="text-teal-400 text-xl font-bold mb-2">09. Eco-Fuel Slope Optimizer</div>
-                    <p class="text-slate-400 text-sm">Algorithmic routing designed to minimize fuel burn across steep inclination gradients.</p>
-                </div>
-                <!-- Feature 10 -->
-                <div class="bg-slate-900/60 border border-slate-800/80 p-6 rounded-2xl hover:border-teal-500/50 transition duration-300">
-                    <div class="text-teal-400 text-xl font-bold mb-2">10. Escrow Wallet & SLA</div>
-                    <p class="text-slate-400 text-sm">Secure fund holding mechanism tied strictly to multi-carrier Service Level Agreements.</p>
-                </div>
-                <!-- Feature 11 -->
-                <div class="bg-slate-900/60 border border-slate-800/80 p-6 rounded-2xl hover:border-teal-500/50 transition duration-300">
-                    <div class="text-teal-400 text-xl font-bold mb-2">11. Zero-Loss Insurance Cover</div>
-                    <p class="text-slate-400 text-sm">Integrated risk mitigation and instant claim processing for high-value shipments.</p>
-                </div>
-                <!-- Feature 12 -->
-                <div class="bg-slate-900/60 border border-slate-800/80 p-6 rounded-2xl hover:border-teal-500/50 transition duration-300">
-                    <div class="text-teal-400 text-xl font-bold mb-2">12. Real-Time Command Hub</div>
-                    <p class="text-slate-400 text-sm">Centralized telemetry dashboard offering full visibility over active consignments.</p>
-                </div>
-                <!-- Feature 13 -->
-                <div class="bg-slate-900/60 border border-slate-800/80 p-6 rounded-2xl hover:border-teal-500/50 transition duration-300">
-                    <div class="text-teal-400 text-xl font-bold mb-2">13. Auto-Complete Search</div>
-                    <p class="text-slate-400 text-sm">Lightning-fast responsive search inputs engineered with vanilla JavaScript logic.</p>
-                </div>
-                <!-- Feature 14 -->
-                <div class="bg-slate-900/60 border border-slate-800/80 p-6 rounded-2xl hover:border-teal-500/50 transition duration-300">
-                    <div class="text-teal-400 text-xl font-bold mb-2">14. Responsive Mobile-First UI</div>
-                    <p class="text-slate-400 text-sm">Tailwind CSS powered ultra-fluid layout optimized for smartphones and enterprise displays.</p>
-                </div>
-                <!-- Feature 15 -->
-                <div class="bg-slate-900/60 border border-slate-800/80 p-6 rounded-2xl hover:border-teal-500/50 transition duration-300">
-                    <div class="text-teal-400 text-xl font-bold mb-2">15. Social & Portfolio Sync</div>
-                    <p class="text-slate-400 text-sm">Direct connection ports to professional networks and founder showcase profiles.</p>
-                </div>
-                <!-- Feature 16 -->
-                <div class="bg-slate-900/60 border border-slate-800/80 p-6 rounded-2xl hover:border-teal-500/50 transition duration-300">
-                    <div class="text-teal-400 text-xl font-bold mb-2">16. Secure SSL & Data Flow</div>
-                    <p class="text-slate-400 text-sm">Encrypted data transmission backed by secure GitHub Pages cloud hosting infrastructure.</p>
-                </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="featuresGrid">
+                <!-- Injected via JavaScript below -->
             </div>
         </div>
     </main>
+
+    <!-- Modal for Clickable Feature Actions -->
+    <div id="actionModal" class="fixed inset-0 bg-black/80 hidden items-center justify-center z-50 p-4">
+        <div class="bg-slate-900 border border-teal-500/50 rounded-2xl max-w-lg w-full p-6 relative shadow-2xl">
+            <button id="closeModal" class="absolute top-4 right-4 text-slate-400 hover:text-white text-xl cursor-pointer">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <h3 id="modalTitle" class="text-xl font-bold text-white mb-2">Module Execution Hub</h3>
+            <p id="modalDesc" class="text-sm text-slate-400 mb-6">Running command operation...</p>
+            <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 mb-6" id="modalBodyContent">
+                <input type="text" id="modalInputVal" placeholder="Enter parameter or query..." class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:border-teal-500">
+            </div>
+            <button id="modalActionBtn" class="w-full bg-teal-600 hover:bg-teal-500 text-slate-950 font-bold py-3 rounded-xl transition cursor-pointer">
+                Execute Protocol
+            </button>
+        </div>
+    </div>
 
     <!-- Footer Section -->
     <footer class="bg-slate-900 border-t border-slate-800 py-6 text-center text-xs text-slate-400">
         <p>&copy; 2026 AxomOps AI. Designed & Developed by <span class="text-teal-400 font-semibold">Bishwajit Dohutia</span> (Founder). All rights reserved.</p>
     </footer>
 
+    <!-- JavaScript to render 16 Clickable Features & Animations -->
+    <script>
+        const features = [
+            { id: 1, title: "Live News & Ticker Bar", desc: "Real-time broadcasting updates and live system announcements integrated directly into the command dashboard." },
+            { id: 2, title: "Global & Regional Pincode Intelligence", desc: "Deep geographical database mapping standard and remote delivery pin codes instantly." },
+            { id: 3, title: "Instant Carrier Search & Matrix", desc: "Quick sorting and filtering matrix for multi-carrier availability and pricing comparison." },
+            { id: 4, title: "Last-Mile Micro-Hub Bridge", desc: "Bridging operational blind spots in unserviceable deep rural and hilly terrains." },
+            { id: 5, title: "Authorized Admin Directory", desc: "Direct contact channels with verified logistics nodal officers and field managers." },
+            { id: 6, title: "Live SMS & WhatsApp Generator", desc: "Automated instant tracking link creation for direct client updates via messaging apps." },
+            { id: 7, title: "AI Landslide & Terrain Predictor", desc: "Predictive alerts for mountainous weather hazards and tea garden geofencing grids." },
+            { id: 8, title: "Cross-Border P2P Pooling", desc: "Collaborative peer-to-peer carrier resource sharing across regional boundaries." },
+            { id: 9, title: "Eco-Fuel Slope Optimizer", desc: "Algorithmic routing designed to minimize fuel burn across steep inclination gradients." },
+            { id: 10, title: "Escrow Wallet & SLA", desc: "Secure fund holding mechanism tied strictly to multi-carrier Service Level Agreements." },
+            { id: 11, title: "Zero-Loss Insurance Cover", desc: "Integrated risk mitigation and instant claim processing for high-value shipments." },
+            { id: 12, title: "Real-Time Command Hub", desc: "Centralized telemetry dashboard offering full visibility over active consignments." },
+            { id: 13, title: "Auto-Complete Search", desc: "Lightning-fast responsive search inputs engineered with vanilla JavaScript logic." },
+            { id: 14, title: "Responsive Mobile-First UI", desc: "Tailwind CSS powered ultra-fluid layout optimized for smartphones and enterprise displays." },
+            { id: 15, title: "Social & Portfolio Sync", desc: "Direct connection ports to professional networks and founder showcase profiles." },
+            { id: 16, title: "Secure SSL & Data Flow", desc: "Encrypted data transmission backed by secure GitHub Pages cloud hosting infrastructure." }
+        ];
+
+        const grid = document.getElementById('featuresGrid');
+        features.forEach(f => {
+            const card = document.createElement('div');
+            card.className = "bg-slate-900/60 border border-slate-800/80 p-6 rounded-2xl hover:border-teal-500/50 transition duration-300 cursor-pointer group flex flex-col justify-between";
+            card.innerHTML = `
+                <div>
+                    <div class="text-teal-400 text-xl font-bold mb-2 group-hover:scale-105 transition-transform">
+                        ${f.id < 10 ? '0' + f.id : f.id}. ${f.title}
+                    </div>
+                    <p class="text-slate-400 text-sm">${f.desc}</p>
+                </div>
+                <div class="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs text-teal-400 font-medium">
+                    <span>Click to Launch Module</span>
+                    <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                </div>
+            `;
+            // Make each card fully clickable opening modal
+            card.addEventListener('click', () => {
+                document.getElementById('modalTitle').innerText = `Feature ${f.id}: ${f.title}`;
+                document.getElementById('modalDesc').innerText = f.desc;
+                document.getElementById('actionModal').classList.remove('hidden');
+                document.getElementById('actionModal').classList.add('flex');
+            });
+            grid.appendChild(card);
+        });
+
+        // Modal close controls
+        document.getElementById('closeModal').addEventListener('click', () => {
+            document.getElementById('actionModal').classList.add('hidden');
+            document.getElementById('actionModal').classList.remove('flex');
+        });
+
+        document.getElementById('modalActionBtn').addEventListener('click', () => {
+            const val = document.getElementById('modalInputVal').value;
+            alert("Success! Protocol executed successfully for parameter: " + (val || "Default Node"));
+            document.getElementById('actionModal').classList.add('hidden');
+            document.getElementById('actionModal').classList.remove('flex');
+        });
+    </script>
 </body>
 </html>
