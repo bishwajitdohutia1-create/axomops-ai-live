@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AxomOps AI | Enterprise Logistics Intelligence & Command Hub</title>
+    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
@@ -17,10 +18,10 @@
         }
 
         @keyframes sleekTitleReveal {
-            0% { opacity: 0; transform: translateY(20px); filter: blur(8px); }
+            0% { opacity: 0; transform: translateY(20px); filter: blur(6px); }
             100% { opacity: 1; transform: translateY(0); filter: blur(0); }
         }
-        .sleek-title-anim { animation: sleekTitleReveal 1.4s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        .sleek-title-anim { animation: sleekTitleReveal 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
 
         @keyframes pulseGlow {
             0%, 100% { box-shadow: 0 0 35px rgba(20, 184, 166, 0.5); transform: scale(1); }
@@ -28,46 +29,40 @@
         }
         .glowing-element { animation: pulseGlow 3s infinite ease-in-out; }
 
-        @keyframes spinGlobe {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        .globe-spin { animation: spinGlobe 30s linear infinite; }
-
-        /* Real Mountain Track & Cinematic Realistic Truck Animation */
+        /* Real Mountain Hill Highway & Realistic Moving Truck Animation */
         .bg-hill-terrain {
-            background-image: linear-gradient(to bottom, rgba(2, 6, 23, 0.70), rgba(2, 6, 23, 0.92)), url('https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=1920&q=80');
+            background-image: linear-gradient(to bottom, rgba(2, 6, 23, 0.65), rgba(2, 6, 23, 0.90)), url('https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=1920&q=80');
             background-size: cover;
             background-position: center;
         }
 
         @keyframes driveRealTrackTruck {
-            0% { transform: translateX(-130%); }
-            100% { transform: translateX(130vw); }
+            0% { transform: translateX(-140%); }
+            100% { transform: translateX(140vw); }
         }
         .real-truck-highway {
             position: relative;
             width: 100%;
-            height: 130px;
+            height: 140px;
             overflow: hidden;
             background: linear-gradient(90deg, rgba(2,6,23,0.95) 0%, rgba(20,184,166,0.3) 50%, rgba(2,6,23,0.95) 100%);
-            border: 2px solid rgba(20, 184, 166, 0.6);
+            border: 2px solid rgba(20, 184, 166, 0.7);
             border-radius: 20px;
             margin: 2.5rem 0;
             display: flex;
             align-items: center;
-            box-shadow: inset 0 0 30px rgba(20, 184, 166, 0.25);
+            box-shadow: inset 0 0 40px rgba(20, 184, 166, 0.3);
         }
         .real-moving-truck {
             position: absolute;
-            animation: driveRealTrackTruck 8s linear infinite;
+            animation: driveRealTrackTruck 7s linear infinite;
             display: flex;
             align-items: center;
             background: linear-gradient(135deg, #090d16, #020617);
             border: 2px solid #14b8a6;
-            padding: 12px 24px;
-            border-radius: 14px;
-            box-shadow: 0 0 30px rgba(20, 184, 166, 0.8);
+            padding: 14px 28px;
+            border-radius: 16px;
+            box-shadow: 0 0 35px rgba(20, 184, 166, 0.9);
         }
 
         .luxury-card {
@@ -86,6 +81,7 @@
 </head>
 <body class="bg-slate-950 text-slate-100 font-sans antialiased min-h-screen flex flex-col justify-between selection:bg-teal-400 selection:text-black">
 
+    <!-- Live Ticker Bar -->
     <div class="bg-gradient-to-r from-teal-950 via-slate-950 to-black text-teal-300 py-3 px-4 border-b border-teal-500/40 shadow-2xl">
         <div class="max-w-7xl mx-auto flex items-center">
             <div class="flex items-center space-x-2 bg-teal-500 text-slate-950 px-3 py-1 rounded font-bold text-xs uppercase tracking-wider shrink-0 mr-4 animate-pulse">
@@ -100,6 +96,7 @@
         </div>
     </div>
 
+    <!-- Header Section -->
     <header class="bg-slate-900/90 backdrop-blur-md border-b border-slate-800 sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-col md:flex-row justify-between items-center">
             <div class="flex items-center space-x-4 mb-3 md:mb-0">
@@ -130,6 +127,7 @@
     </header>
 
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 flex-grow w-full">
+        <!-- Hero Section with Mountain Track & Realistic Moving Truck -->
         <div id="hero" class="bg-hill-terrain rounded-[2.5rem] p-8 sm:p-16 border border-teal-500/30 shadow-2xl text-center max-w-5xl mx-auto mb-20 relative overflow-hidden">
             <div class="flex flex-col items-center justify-center mb-8">
                 <div class="relative w-40 h-40 sm:w-48 sm:h-48 rounded-full bg-gradient-to-tr from-blue-950 via-teal-950 to-slate-900 border-4 border-teal-400 glowing-element flex items-center justify-center shadow-2xl mb-4 overflow-hidden">
@@ -148,12 +146,13 @@
                 An advanced logistics aggregator and command hub built to bridge pincode vacuums, predict remote zone disruptions, and optimize last-mile connectivity through next-gen AI.
             </p>
 
+            <!-- Real Mountain Track Moving Truck Animation -->
             <div class="real-truck-highway">
                 <div class="real-moving-truck space-x-4">
-                    <i class="fa-solid fa-truck-fast text-teal-400 text-3xl animate-pulse"></i>
+                    <i class="fa-solid fa-truck-fast text-teal-400 text-4xl animate-pulse"></i>
                     <div class="text-left">
-                        <p class="text-xs sm:text-sm font-black text-teal-300 uppercase tracking-wider">AXOMOPS CARGO FLEET EXPRESS</p>
-                        <p class="text-[11px] text-slate-300 font-bold">Hill Terrain Transit & Last-Mile Delivery Active</p>
+                        <p class="text-sm sm:text-base font-black text-teal-300 uppercase tracking-wider">AXOMOPS HILL TERRAIN CARGO EXPRESS</p>
+                        <p class="text-xs text-slate-200 font-bold">Real-time Mountain Transit & Telemetry Active</p>
                     </div>
                 </div>
             </div>
@@ -174,6 +173,7 @@
             </div>
         </div>
 
+        <!-- About Us Section -->
         <section id="about" class="py-16 mb-20 border-y border-teal-500/20 bg-slate-900/40 rounded-3xl px-6">
             <div class="max-w-4xl mx-auto text-center">
                 <span class="text-yellow-400 text-xs font-bold tracking-widest uppercase mb-2 block">Enterprise Overview</span>
@@ -201,21 +201,25 @@
             </div>
         </section>
 
+        <!-- 16 Features Grid Section -->
         <div id="features" class="mb-20">
             <h3 class="text-2xl font-bold text-white mb-8 border-l-4 border-teal-500 pl-3">Core Enterprise Architecture & Features (16 Modules - Clickable)</h3>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="featuresGrid"></div>
         </div>
 
+        <!-- Founder Suite Section (With Correct Founder Photo IMG_20260604_223743.jpg and Contact +91 8486330619) -->
         <section id="founder" class="mb-20">
             <div class="max-w-4xl mx-auto">
                 <div class="luxury-card p-8 sm:p-12 rounded-[2.5rem] relative overflow-hidden flex flex-col sm:flex-row items-center gap-8 glowing-element">
                     <div class="absolute -right-12 -bottom-12 text-teal-500/10 text-[12rem] font-black pointer-events-none select-none">A</div>
                     
+                    <!-- Founder Photo -->
                     <div class="shrink-0 relative group">
                         <div class="absolute -inset-2 bg-gradient-to-r from-teal-400 to-yellow-400 rounded-3xl blur-md opacity-80 group-hover:opacity-100 transition duration-500 animate-pulse"></div>
                         <img src="IMG_20260604_223743.jpg" alt="Bishwajit Dohutia - Founder" class="relative w-48 h-48 sm:w-56 sm:h-56 object-contain bg-slate-950 rounded-2xl border-4 border-teal-300 shadow-2xl transform group-hover:scale-[1.02] transition duration-300">
                     </div>
 
+                    <!-- Founder Details -->
                     <div class="relative z-10 text-center sm:text-left w-full">
                         <div class="inline-flex items-center space-x-2 bg-yellow-500/20 text-yellow-300 border border-yellow-400/40 px-3.5 py-1 rounded-full text-xs font-bold uppercase tracking-widest mb-3">
                             <i class="fa-solid fa-crown text-yellow-400"></i> <span>Founder & Visionary Creator</span>
@@ -223,6 +227,7 @@
                         <h4 class="font-black text-white text-3xl tracking-tight mb-1">Bishwajit Dohutia</h4>
                         <p class="text-teal-300 text-xs sm:text-sm font-semibold tracking-wide mb-2">MBA in Marketing Management | 8+ Years Corporate & Operations Excellence</p>
                         
+                        <!-- Contact Phone Number -->
                         <div class="mb-4 inline-flex items-center space-x-2 bg-teal-500/10 border border-teal-400/30 px-3.5 py-1.5 rounded-xl text-teal-300 text-xs font-bold">
                             <i class="fa-solid fa-phone-volume text-teal-400"></i>
                             <span>Direct Contact: +91 8486330619</span>
@@ -238,6 +243,7 @@
             </div>
         </section>
 
+        <!-- Contact Us Section -->
         <section id="contact" class="mb-12">
             <div class="max-w-4xl mx-auto text-center">
                 <h3 class="text-3xl font-extrabold text-white mb-4">Connect With AxomOps AI</h3>
@@ -265,6 +271,7 @@
         </section>
     </main>
 
+    <!-- Modal for Clickable Feature Actions -->
     <div id="actionModal" class="fixed inset-0 bg-black/85 hidden items-center justify-center z-50 p-4">
         <div class="bg-slate-900 border-2 border-teal-500 rounded-2xl max-w-lg w-full p-6 relative shadow-2xl">
             <button id="closeModal" class="absolute top-4 right-4 text-slate-400 hover:text-white text-xl cursor-pointer">
@@ -281,10 +288,12 @@
         </div>
     </div>
 
+    <!-- Footer Section -->
     <footer class="bg-slate-900 border-t border-slate-800 py-6 text-center text-xs text-slate-400">
         <p>&copy; 2026 AxomOps AI. Designed & Developed by <span class="text-teal-400 font-semibold">Bishwajit Dohutia</span> (Tinsukia, Assam, India). All rights reserved.</p>
     </footer>
 
+    <!-- JavaScript to render 16 Clickable Features -->
     <script>
         const features = [
             { id: 1, title: "Live News & Ticker Bar", desc: "Real-time broadcasting updates and live system announcements integrated directly into the command dashboard." },
