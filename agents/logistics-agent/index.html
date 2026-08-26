@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logistics AI Agent | AxomOps AI</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        darkbg: '#0f172a',
+                        cardbg: '#1e293b'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-darkbg text-slate-100 min-h-screen flex flex-col font-sans">
+    <header class="bg-cardbg border-b border-slate-800 p-4 shadow-md">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <h1 class="text-xl font-bold tracking-wide text-cyan-400">AxomOps AI // Logistics Agent</h1>
+            <a href="../../index.html" class="text-sm bg-slate-700 hover:bg-slate-600 px-3 py-1.5 rounded transition">← Back to Hub</a>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto flex-1 p-4 md:p-6 grid grid-cols-1 lg:grid-cols-3 gap-6 w-full">
+        <!-- Section 1: Route Optimizer -->
+        <section class="bg-cardbg p-5 rounded-xl border border-slate-800 shadow flex flex-col">
+            <h2 class="text-lg font-semibold text-cyan-300 mb-3">⚡ Route & Carrier Optimizer</h2>
+            <p class="text-xs text-slate-400 mb-4">Find the fastest and cheapest carrier based on historical operational averages.</p>
+            <div class="space-y-3 flex-1 flex flex-col">
+                <div>
+                    <label class="block text-xs text-slate-300 mb-1">Pickup Pincode</label>
+                    <input type="text" id="pickupPin" placeholder="e.g. 786125" class="w-auto bg-slate-900 border border-slate-700 rounded px-3 py-2 text-sm text-slate-100 focus:outline-none focus:border-cyan-500">
+                </div>
+                <div>
+                    <label class="block text-xs text-slate-300 mb-1">Delivery Pincode</label>
+                    <input type="text" id="deliveryPin" placeholder="e.g. 781001" class="w-auto bg-slate-900 border border-slate-700 rounded px-3 py-2 text-sm text-slate-100 focus:outline-none focus:border-cyan-500">
+                </div>
+                <button onclick="handleOptimizeRoute()" class="w-full bg-cyan-600 hover:bg-cyan-500 text-slate-950 font-semibold py-2 rounded text-sm transition mt-2">Calculate Best Carrier</button>
+                <div id="routeResults" class="mt-4 flex-1 overflow-y-auto space-y-2 text-xs text-slate-300">
+                    <span class="text-slate-500 italic">Enter pincodes and calculate to view recommendations...</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: Customer Query Agent -->
+        <section class="bg-cardbg p-5 rounded-xl border border-slate-800 shadow flex flex-col">
+            <h2 class="text-lg font-semibold text-cyan-300 mb-3">💬 Customer Support Agent</h2>
+            <p class="text-xs text-slate-400 mb-4">Ask about shipment status (e.g., SHIP001) or pincode coverage.</p>
+            <div class="flex-1 bg-slate-900 border border-slate-800 rounded p-3 mb-3 h-64 overflow-y-auto flex flex-col space-y-2 text-sm" id="chatBox">
+                <div class="bg-slate-800 p-2 rounded max-w-[85%] text-slate-300 text-xs self-start">
+                    Hello! Ask me about tracking ID <span class="text-cyan-400">SHIP001</span>, <span class="text-cyan-400">SHIP002</span>, <span class="text-cyan-400">SHIP003</span> or delivery pincodes.
+                </div>
+            </div>
+            <div class="flex gap-2">
+                <input type="text" id="chatInput" placeholder="Type query (e.g. Where is SHIP001?)..." class="flex-1 bg-slate-900 border border-slate-700 rounded px-3 py-2 text-sm text-slate-100 focus:outline-none focus:border-cyan-500" onkeypress="if(event.key==='Enter') handleChatQuery()">
+                <button onclick="handleChatQuery()" class="bg-slate-700 hover:bg-slate-600 px-4 py-2 rounded text-sm font-medium transition">Send</button>
+            </div>
+        </section>
+
+        <!-- Section 3: Self-Learning Update Log -->
+        <section class="bg-cardbg p-5 rounded-xl border border-slate-800 shadow flex flex-col">
+            <div class="flex justify-between items-center mb-3">
+                <h2 class="text-lg font-semibold text-cyan-300">🔄 Self-Learning Update Log</h2>
+                <button onclick="loadUpdateLogs()" class="text-xs text-cyan-400 hover:underline">Refresh Logs</button>
+            </div>
+            <p class="text-xs text-slate-400 mb-4">Audit trail of weekly automated data refreshes and score adjustments.</p>
+            <div class="flex-1 bg-slate-900 border border-slate-800 rounded p-3 overflow-y-auto space-y-2 text-xs font-mono" id="logContainer">
+                <span class="text-slate-500 italic">Loading audit logs...</span>
+            </div>
+        </section>
+    </main>
+
+    <footer class="text-center py-4 text-xs text-slate-500 border-t border-slate-800 mt-auto">
+        AxomOps AI Logistics Agent Module &bull; Static Heuristic Engine v1.0
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/db.js"></script>
+    <script src="js/routeOptimizer.js"></script>
+    <script src="js/customerAgent.js"></script>
+</body>
+</html>

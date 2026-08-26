@@ -1,0 +1,31 @@
+name: Logistics Data Self-Updater
+
+on:
+  schedule:
+    - cron: '0 0 * * 1' # Runs every Monday at midnight UTC
+  workflow_dispatch: # Allows manual trigger from Actions tab
+
+jobs:
+  update-data:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Run updater script
+        run: npm run update-data
+
+      - name: Commit and push changes if any
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "chore: weekly automated logistics data refresh [skip ci]"
+          branch: feature/logistics-agent
+          commit_user_name: "GitHub Actions Bot"
+          commit_user_email: "actions@github.com"

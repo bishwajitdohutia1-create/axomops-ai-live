@@ -1,0 +1,29 @@
+[
+  {
+    "tracking_id": "SHIP001",
+    "carrier_id": "CARR_A",
+    "origin": "786125",
+    "destination": "781001",
+    "status": "In Transit",
+    "estimated_delivery": "2026-08-30",
+    "current_location": "Guwahati Hub"
+  },
+  {
+    "tracking_id": "SHIP002",
+    "carrier_id": "CARR_B",
+    "origin": "786001",
+    "destination": "793001",
+    "status": "Out for Delivery",
+    "estimated_delivery": "2026-08-26",
+    "current_location": "Shillong Delivery Center"
+  },
+  {
+    "tracking_id": "SHIP003",
+    "carrier_id": "CARR_C",
+    "origin": "781001",
+    "destination": "788001",
+    "status": "Delivered",
+    "estimated_delivery": "2026-08-24",
+    "current_location": "Silchar Hub"
+  }
+]
