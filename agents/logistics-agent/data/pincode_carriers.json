@@ -1,0 +1,29 @@
+[
+  {
+    "carrier_id": "CARR_A",
+    "carrier_name": "Assam Express Logistics",
+    "serviced_pincodes": ["786125", "786001", "781001", "785001"],
+    "avg_speed_kmph": 45,
+    "avg_cost_per_km": 12.5,
+    "performance_score": 92,
+    "last_updated": "2026-08-01"
+  },
+  {
+    "carrier_id": "CARR_B",
+    "carrier_name": "Brahmaputra Freight Co.",
+    "serviced_pincodes": ["786125", "781001", "796001", "793001"],
+    "avg_speed_kmph": 55,
+    "avg_cost_per_km": 15.0,
+    "performance_score": 88,
+    "last_updated": "2026-08-01"
+  },
+  {
+    "carrier_id": "CARR_C",
+    "carrier_name": "Northeast Swift Cargo",
+    "serviced_pincodes": ["786001", "781001", "788001", "795001"],
+    "avg_speed_kmph": 40,
+    "avg_cost_per_km": 10.0,
+    "performance_score": 85,
+    "last_updated": "2026-08-01"
+  }
+]
