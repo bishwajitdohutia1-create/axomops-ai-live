@@ -1,0 +1,11 @@
+{
+  "name": "axomops-ai-logistics-agent",
+  "version": "1.0.0",
+  "description": "Logistics AI Agent module for AxomOps AI",
+  "main": "index.js",
+  "scripts": {
+    "update-data": "node scripts/update_data.js"
+  },
+  "dependencies": {},
+  "devDependencies": {}
+}
