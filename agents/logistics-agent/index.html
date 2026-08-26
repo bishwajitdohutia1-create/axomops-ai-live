@@ -23,7 +23,7 @@
     <header class="bg-cardbg border-b border-slate-800 p-4 shadow-md">
         <div class="max-w-7xl mx-auto flex justify-between items-center">
             <h1 class="text-xl font-bold tracking-wide text-cyan-400">AxomOps AI // Logistics Agent</h1>
-            <a href="../../index.html" class="text-sm bg-slate-700 hover:bg-slate-600 px-3 py-1.5 rounded transition">← Back to Hub</a>
+            <a href="../../index.html" class="text-sm bg-slate-700 hover:bg-slate-600 px-3 py-1.5 rounded transition">Back to Hub</a>
         </div>
     </header>
 
@@ -35,11 +35,11 @@
             <div class="space-y-3 flex-1 flex flex-col">
                 <div>
                     <label class="block text-xs text-slate-300 mb-1">Pickup Pincode</label>
-                    <input type="text" id="pickupPin" placeholder="e.g. 786125" class="w-auto bg-slate-900 border border-slate-700 rounded px-3 py-2 text-sm text-slate-100 focus:outline-none focus:border-cyan-500">
+                    <input type="text" id="pickupPin" placeholder="e.g. 786125" class="w-full bg-slate-900 border border-slate-700 rounded px-3 py-2 text-sm text-slate-100 focus:outline-none focus:border-cyan-500">
                 </div>
                 <div>
                     <label class="block text-xs text-slate-300 mb-1">Delivery Pincode</label>
-                    <input type="text" id="deliveryPin" placeholder="e.g. 781001" class="w-auto bg-slate-900 border border-slate-700 rounded px-3 py-2 text-sm text-slate-100 focus:outline-none focus:border-cyan-500">
+                    <input type="text" id="deliveryPin" placeholder="e.g. 781001" class="w-full bg-slate-900 border border-slate-700 rounded px-3 py-2 text-sm text-slate-100 focus:outline-none focus:border-cyan-500">
                 </div>
                 <button onclick="handleOptimizeRoute()" class="w-full bg-cyan-600 hover:bg-cyan-500 text-slate-950 font-semibold py-2 rounded text-sm transition mt-2">Calculate Best Carrier</button>
                 <div id="routeResults" class="mt-4 flex-1 overflow-y-auto space-y-2 text-xs text-slate-300">
@@ -48,41 +48,50 @@
             </div>
         </section>
 
-        <!-- Section 2: Customer Query Agent -->
+        <!-- Section 2: Customer Support Agent with Voice & Multilingual Support -->
         <section class="bg-cardbg p-5 rounded-xl border border-slate-800 shadow flex flex-col">
-            <h2 class="text-lg font-semibold text-cyan-300 mb-3">💬 Customer Support Agent</h2>
-            <p class="text-xs text-slate-400 mb-4">Ask about shipment status (e.g., SHIP001) or pincode coverage.</p>
-            <div class="flex-1 bg-slate-900 border border-slate-800 rounded p-3 mb-3 h-64 overflow-y-auto flex flex-col space-y-2 text-sm" id="chatBox">
-                <div class="bg-slate-800 p-2 rounded max-w-[85%] text-slate-300 text-xs self-start">
+            <h2 class="text-lg font-semibold text-cyan-300 mb-1">💬 Customer Support Agent</h2>
+            <p class="text-xs text-slate-400 mb-4">Ask about shipment status (e.g., SHIP001) or pincode coverage in your preferred language.</p>
+            
+            <div id="chatBox" class="flex-1 bg-slate-900 border border-slate-800 rounded p-3 h-64 overflow-y-auto space-y-2 text-xs text-slate-300 flex flex-col">
+                <div class="bg-slate-800 text-slate-300 p-2 rounded max-w-[85%] text-xs self-start">
                     Hello! Ask me about tracking ID <span class="text-cyan-400">SHIP001</span>, <span class="text-cyan-400">SHIP002</span>, <span class="text-cyan-400">SHIP003</span> or delivery pincodes.
                 </div>
             </div>
-            <div class="flex gap-2">
-                <input type="text" id="chatInput" placeholder="Type query (e.g. Where is SHIP001?)..." class="flex-1 bg-slate-900 border border-slate-700 rounded px-3 py-2 text-sm text-slate-100 focus:outline-none focus:border-cyan-500" onkeypress="if(event.key==='Enter') handleChatQuery()">
-                <button onclick="handleChatQuery()" class="bg-slate-700 hover:bg-slate-600 px-4 py-2 rounded text-sm font-medium transition">Send</button>
+
+            <!-- Voice Controls & Input Section -->
+            <div class="flex items-center gap-2 mt-3">
+                <select id="chatLanguage" class="bg-slate-900 text-cyan-200 text-xs p-2 rounded border border-slate-700 outline-none">
+                    <option value="en-US">English</option>
+                    <option value="as-IN">অসমীয়া</option>
+                    <option value="hi-IN">हिन्दी</option>
+                </select>
+                <input type="text" id="chatInput" placeholder="Type query or speak..." onkeypress="if(event.key==='Enter') handleChatQuery()" class="flex-1 bg-slate-900 text-slate-100 text-xs p-2 rounded border border-slate-700 outline-none">
+                <button onclick="toggleVoiceInput()" id="micBtn" class="bg-slate-800 hover:bg-slate-700 text-cyan-400 p-2 rounded text-xs border border-slate-700 transition" title="Voice Input">🎤</button>
+                <button onclick="handleChatQuery()" class="bg-cyan-600 hover:bg-cyan-500 text-white text-xs px-3 py-2 rounded transition">Send</button>
             </div>
         </section>
 
         <!-- Section 3: Self-Learning Update Log -->
         <section class="bg-cardbg p-5 rounded-xl border border-slate-800 shadow flex flex-col">
-            <div class="flex justify-between items-center mb-3">
+            <div class="flex justify-between items-center mb-2">
                 <h2 class="text-lg font-semibold text-cyan-300">🔄 Self-Learning Update Log</h2>
                 <button onclick="loadUpdateLogs()" class="text-xs text-cyan-400 hover:underline">Refresh Logs</button>
             </div>
-            <p class="text-xs text-slate-400 mb-4">Audit trail of weekly automated data refreshes and score adjustments.</p>
-            <div class="flex-1 bg-slate-900 border border-slate-800 rounded p-3 overflow-y-auto space-y-2 text-xs font-mono" id="logContainer">
-                <span class="text-slate-500 italic">Loading audit logs...</span>
+            <p class="text-xs text-slate-400 mb-3">Audit trail of weekly automated data refreshes and score adjustments.</p>
+            <div id="updateLogBox" class="flex-1 bg-slate-900 border border-slate-800 rounded p-3 h-64 overflow-y-auto text-xs text-slate-300">
+                <span class="text-slate-500 italic">No automated updates recorded yet.</span>
             </div>
         </section>
     </main>
 
-    <footer class="text-center py-4 text-xs text-slate-500 border-t border-slate-800 mt-auto">
+    <footer class="bg-cardbg border-t border-slate-800 p-4 text-center text-xs text-slate-500">
         AxomOps AI Logistics Agent Module &bull; Static Heuristic Engine v1.0
     </footer>
 
-    <!-- Scripts -->
     <script src="js/db.js"></script>
     <script src="js/routeOptimizer.js"></script>
     <script src="js/customerAgent.js"></script>
+    <script src="js/updateLogger.js"></script>
 </body>
 </html>
