@@ -1,151 +1,107 @@
-// Conversational State Machine with Voice Support
-let chatState = {
-    step: 'GREETING',
-    userName: '',
-    userLocation: '',
-    userIntent: ''
-};
-
-// Toggle Web Speech Recognition (Speech-to-Text)
-function toggleVoiceInput() {
-    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-    if (!SpeechRecognition) {
-        alert("Speech recognition is not supported in this browser. Please use Chrome or Edge.");
-        return;
-    }
-
-    const recognition = new SpeechRecognition();
-    const langSelect = document.getElementById('chatLanguage');
-    recognition.lang = langSelect ? langSelect.value : 'en-US';
-    
-    const micBtn = document.getElementById('micBtn');
-    micBtn.classList.add('text-red-400', 'animate-pulse');
-
-    recognition.onresult = function(event) {
-        const speechToText = event.results[0][0].transcript;
-        document.getElementById('chatInput').value = speechToText;
-        micBtn.classList.remove('text-red-400', 'animate-pulse');
-    };
-
-    recognition.onerror = function() {
-        micBtn.classList.remove('text-red-400', 'animate-pulse');
-    };
-
-    recognition.onend = function() {
-        micBtn.classList.remove('text-red-400', 'animate-pulse');
-    };
-
-    recognition.start();
-}
-
-// Text-to-Speech (AI Voice Output)
-function speakResponse(text) {
-    if ('speechSynthesis' in window) {
-        const cleanText = text.replace(/<[^>]*>?/gm, '');
-        const utterance = new SpeechSynthesisUtterance(cleanText);
-        const langSelect = document.getElementById('chatLanguage');
-        utterance.lang = langSelect ? langSelect.value : 'en-US';
-        window.speechSynthesis.speak(utterance);
-    }
-}
-
-async function handleChatQuery() {
-    const chatInput = document.getElementById('chatInput');
-    const chatBox = document.getElementById('chatBox');
-    const query = chatInput.value.trim();
-
-    if (!query) return;
-
-    chatBox.innerHTML += `
-        <div class="bg-cyan-950 text-cyan-200 p-2 rounded max-w-[85%] text-xs self-end">
-            ${escapeHtml(query)}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AxomOps AI Logistics Agent</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col items-center justify-center p-4">
+    <div class="max-w-xl w-full bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-2xl">
+        <div class="flex items-center justify-between mb-4 border-b border-slate-800 pb-4">
+            <h1 class="text-xl font-bold text-cyan-400">AxomOps AI Logistics Agent</h1>
+            <select id="chatLanguage" class="bg-slate-800 border border-slate-700 text-sm rounded-lg p-1 text-slate-200">
+                <option value="en-US">English</option>
+                <option value="as-IN">Assamese</option>
+            </select>
         </div>
-    `;
-    chatInput.value = '';
-    chatBox.scrollTop = chatBox.scrollHeight;
-
-    setTimeout(async () => {
-        const reply = await generateAdvancedAgentResponse(query);
-        chatBox.innerHTML += `
-            <div class="bg-slate-800 text-slate-300 p-2 rounded max-w-[85%] text-xs self-start flex items-center justify-between gap-2">
-                <span>${reply}</span>
-                <button onclick="speakResponse('${reply.replace(/'/g, "\\'")}')" class="text-cyan-400 hover:text-white text-xs" title="Listen">🔊</button>
+        
+        <div id="chatBox" class="h-80 overflow-y-auto space-y-3 mb-4 p-2 bg-slate-950 rounded-xl border border-slate-800/50 text-sm">
+            <div class="p-3 bg-cyan-950/40 border border-cyan-800/50 rounded-xl text-cyan-200">
+                Welcome to AxomOps AI Logistics. May I know your name please?
             </div>
-        `;
-        chatBox.scrollTop = chatBox.scrollHeight;
+        </div>
+
+        <div class="flex items-center gap-2">
+            <input type="text" id="chatInput" placeholder="Type or use mic..." class="flex-1 bg-slate-800 border border-slate-700 rounded-xl px-4 py-2 text-sm focus:outline-none focus:border-cyan-500">
+            <button id="micBtn" onclick="toggleVoiceInput()" class="bg-slate-800 hover:bg-slate-700 border border-slate-700 p-2.5 rounded-xl text-cyan-400">
+                🎤
+            </button>
+            <button onclick="handleChatQuery()" class="bg-cyan-600 hover:bg-cyan-500 text-slate-950 font-semibold px-4 py-2 rounded-xl text-sm transition-all">
+                Send
+            </button>
+        </div>
+    </div>
+
+    <script>
+        let chatState = { step: 'GREETING', userName: '', userLocation: '', userIntent: '' };
         
-        speakResponse(reply);
-    }, 400);
-}
+        function toggleVoiceInput() {
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            if (!SpeechRecognition) {
+                alert("Speech recognition is not supported in this browser. Please use Chrome or Edge.");
+                return;
+            }
+            const recognition = new SpeechRecognition();
+            const langSelect = document.getElementById('chatLanguage');
+            recognition.lang = langSelect ? langSelect.value : 'en-US';
+            const micBtn = document.getElementById('micBtn');
+            micBtn.classList.add('text-red-400', 'animate-pulse');
 
-async function generateAdvancedAgentResponse(query) {
-    const upperQuery = query.toUpperCase();
-
-    if (chatState.step === 'ASK_NAME') {
-        chatState.userName = query.trim();
-        chatState.step = 'ASK_LOCATION';
-        return `Nice to meet you, <strong>${escapeHtml(chatState.userName)}</strong>! May I know your current location or city?`;
-    }
-
-    if (chatState.step === 'ASK_LOCATION') {
-        chatState.userLocation = query.trim();
-        chatState.step = 'ASK_INTENT';
-        return `Got it, from <strong>${escapeHtml(chatState.userLocation)}</strong>. What is the main purpose today? (e.g., checking shipment <strong>SHIP001</strong>, pincode, or route)`;
-    }
-
-    if (chatState.step === 'ASK_INTENT') {
-        chatState.userIntent = query.trim();
-        chatState.step = 'READY';
-        return `Thank you, ${escapeHtml(chatState.userName)}. I'm ready! You can now ask about tracking IDs like <strong>SHIP001</strong> or delivery pincodes.`;
-    }
-
-    if (upperQuery.includes('SHIP')) {
-        const shipments = await DB.fetchShipments();
-        const found = shipments.find(s => upperQuery.includes(s.tracking_id.toUpperCase()));
-        
-        if (found) {
-            return `📦 <strong>Shipment (${found.tracking_id}):</strong> Status: <span class="text-cyan-400">${found.status}</span>, Carrier: ${found.carrier_id}, Location: ${found.current_location}`;
-        } else {
-            return `❌ Sorry ${escapeHtml(chatState.userName)}, tracking ID not found. Try asking for <strong>SHIP001</strong>.`;
+            recognition.onresult = function(event) {
+                const speechToText = event.results[0][0].transcript;
+                document.getElementById('chatInput').value = speechToText;
+                micBtn.classList.remove('text-red-400', 'animate-pulse');
+            };
+            recognition.onerror = function() {
+                micBtn.classList.remove('text-red-400', 'animate-pulse');
+            };
+            recognition.onend = function() {
+                micBtn.classList.remove('text-red-400', 'animate-pulse');
+            };
+            recognition.start();
         }
-    }
 
-    if (/\d{6}/.test(query)) {
-        const pinMatch = query.match(/\d{6}/)[0];
-        const carriers = await DB.fetchCarriers();
-        const servicing = carriers.filter(c => c.serviced_pincodes.includes(pinMatch));
-
-        if (servicing.length > 0) {
-            const names = servicing.map(c => c.carrier_name).join(', ');
-            return `✅ Pincode <strong>${pinMatch}</strong> is serviced by: <span class="text-emerald-400">${names}</span>.`;
-        } else {
-            return `⚠️ Pincode <strong>${pinMatch}</strong> has limited coverage.`;
+        function speakResponse(text) {
+            if ('speechSynthesis' in window) {
+                const cleanText = text.replace(/<[^>]*>?/gm, '');
+                const utterance = new SpeechSynthesisUtterance(cleanText);
+                const langSelect = document.getElementById('chatLanguage');
+                utterance.lang = langSelect ? langSelect.value : 'en-US';
+                window.speechSynthesis.speak(utterance);
+            }
         }
-    }
 
-    return `How else can I help you today, ${escapeHtml(chatState.userName)}?`;
-}
+        async function handleChatQuery() {
+            const chatInput = document.getElementById('chatInput');
+            const chatBox = document.getElementById('chatBox');
+            const query = chatInput.value.trim();
+            if (!query) return;
 
-document.addEventListener('DOMContentLoaded', () => {
-    const chatBox = document.getElementById('chatBox');
-    if (chatBox) {
-        const hour = new Date().getHours();
-        let timeGreeting = hour < 12 ? "Good Morning" : (hour < 18 ? "Good Afternoon" : "Good Evening");
+            chatBox.innerHTML += `<div class="p-2 bg-slate-800 rounded-xl text-right text-slate-200">${escapeHtml(query)}</div>`;
+            chatInput.value = '';
+            chatBox.scrollTop = chatBox.scrollHeight;
 
-        setTimeout(() => {
-            const greetingText = `🤖 ${timeGreeting}! Welcome to AxomOps AI Logistics. May I know your name please?`;
-            chatBox.innerHTML += `
-                <div class="bg-slate-800 text-slate-300 p-2 rounded max-w-[85%] text-xs self-start">
-                    ${greetingText}
-                </div>
-            `;
-            chatState.step = 'ASK_NAME';
-            speakResponse(greetingText);
-        }, 500);
-    }
-});
+            setTimeout(() => {
+                let reply = "I'm ready! You can ask about tracking or delivery.";
+                if (chatState.step === 'GREETING') {
+                    chatState.userName = query;
+                    chatState.step = 'READY';
+                    reply = `Nice to meet you, ${escapeHtml(chatState.userName)}! How can I help you with logistics today?`;
+                } else {
+                    reply = `Got it regarding "${escapeHtml(query)}". Our system is fully operational!`;
+                }
 
-function escapeHtml(text) {
-    const map = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' };
-    return text.replace(/[&<>"']/g, function(m) { return map[m]; });
-}
+                chatBox.innerHTML += `<div class="p-3 bg-cyan-950/40 border border-cyan-800/50 rounded-xl text-cyan-200">${reply}</div>`;
+                chatBox.scrollTop = chatBox.scrollHeight;
+                speakResponse(reply);
+            }, 400);
+        }
+
+        function escapeHtml(text) {
+            const map = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' };
+            return text.replace(/[&<>"']/g, function(m) { return map[m]; });
+        }
+    </script>
+</body>
+</html>
