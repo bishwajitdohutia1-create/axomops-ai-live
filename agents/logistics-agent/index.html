@@ -1,97 +1,151 @@
-<!DOCTYPE html>
-<html lang="en" class="dark">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Logistics AI Agent | AxomOps AI</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        darkbg: '#0f172a',
-                        cardbg: '#1e293b'
-                    }
-                }
-            }
-        }
-    </script>
-</head>
-<body class="bg-darkbg text-slate-100 min-h-screen flex flex-col font-sans">
-    <header class="bg-cardbg border-b border-slate-800 p-4 shadow-md">
-        <div class="max-w-7xl mx-auto flex justify-between items-center">
-            <h1 class="text-xl font-bold tracking-wide text-cyan-400">AxomOps AI // Logistics Agent</h1>
-            <a href="../../index.html" class="text-sm bg-slate-700 hover:bg-slate-600 px-3 py-1.5 rounded transition">Back to Hub</a>
+// Conversational State Machine with Voice Support
+let chatState = {
+    step: 'GREETING',
+    userName: '',
+    userLocation: '',
+    userIntent: ''
+};
+
+// Toggle Web Speech Recognition (Speech-to-Text)
+function toggleVoiceInput() {
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (!SpeechRecognition) {
+        alert("Speech recognition is not supported in this browser. Please use Chrome or Edge.");
+        return;
+    }
+
+    const recognition = new SpeechRecognition();
+    const langSelect = document.getElementById('chatLanguage');
+    recognition.lang = langSelect ? langSelect.value : 'en-US';
+    
+    const micBtn = document.getElementById('micBtn');
+    micBtn.classList.add('text-red-400', 'animate-pulse');
+
+    recognition.onresult = function(event) {
+        const speechToText = event.results[0][0].transcript;
+        document.getElementById('chatInput').value = speechToText;
+        micBtn.classList.remove('text-red-400', 'animate-pulse');
+    };
+
+    recognition.onerror = function() {
+        micBtn.classList.remove('text-red-400', 'animate-pulse');
+    };
+
+    recognition.onend = function() {
+        micBtn.classList.remove('text-red-400', 'animate-pulse');
+    };
+
+    recognition.start();
+}
+
+// Text-to-Speech (AI Voice Output)
+function speakResponse(text) {
+    if ('speechSynthesis' in window) {
+        const cleanText = text.replace(/<[^>]*>?/gm, '');
+        const utterance = new SpeechSynthesisUtterance(cleanText);
+        const langSelect = document.getElementById('chatLanguage');
+        utterance.lang = langSelect ? langSelect.value : 'en-US';
+        window.speechSynthesis.speak(utterance);
+    }
+}
+
+async function handleChatQuery() {
+    const chatInput = document.getElementById('chatInput');
+    const chatBox = document.getElementById('chatBox');
+    const query = chatInput.value.trim();
+
+    if (!query) return;
+
+    chatBox.innerHTML += `
+        <div class="bg-cyan-950 text-cyan-200 p-2 rounded max-w-[85%] text-xs self-end">
+            ${escapeHtml(query)}
         </div>
-    </header>
+    `;
+    chatInput.value = '';
+    chatBox.scrollTop = chatBox.scrollHeight;
 
-    <main class="max-w-7xl mx-auto flex-1 p-4 md:p-6 grid grid-cols-1 lg:grid-cols-3 gap-6 w-full">
-        <!-- Section 1: Route Optimizer -->
-        <section class="bg-cardbg p-5 rounded-xl border border-slate-800 shadow flex flex-col">
-            <h2 class="text-lg font-semibold text-cyan-300 mb-3">⚡ Route & Carrier Optimizer</h2>
-            <p class="text-xs text-slate-400 mb-4">Find the fastest and cheapest carrier based on historical operational averages.</p>
-            <div class="space-y-3 flex-1 flex flex-col">
-                <div>
-                    <label class="block text-xs text-slate-300 mb-1">Pickup Pincode</label>
-                    <input type="text" id="pickupPin" placeholder="e.g. 786125" class="w-full bg-slate-900 border border-slate-700 rounded px-3 py-2 text-sm text-slate-100 focus:outline-none focus:border-cyan-500">
-                </div>
-                <div>
-                    <label class="block text-xs text-slate-300 mb-1">Delivery Pincode</label>
-                    <input type="text" id="deliveryPin" placeholder="e.g. 781001" class="w-full bg-slate-900 border border-slate-700 rounded px-3 py-2 text-sm text-slate-100 focus:outline-none focus:border-cyan-500">
-                </div>
-                <button onclick="handleOptimizeRoute()" class="w-full bg-cyan-600 hover:bg-cyan-500 text-slate-950 font-semibold py-2 rounded text-sm transition mt-2">Calculate Best Carrier</button>
-                <div id="routeResults" class="mt-4 flex-1 overflow-y-auto space-y-2 text-xs text-slate-300">
-                    <span class="text-slate-500 italic">Enter pincodes and calculate to view recommendations...</span>
-                </div>
+    setTimeout(async () => {
+        const reply = await generateAdvancedAgentResponse(query);
+        chatBox.innerHTML += `
+            <div class="bg-slate-800 text-slate-300 p-2 rounded max-w-[85%] text-xs self-start flex items-center justify-between gap-2">
+                <span>${reply}</span>
+                <button onclick="speakResponse('${reply.replace(/'/g, "\\'")}')" class="text-cyan-400 hover:text-white text-xs" title="Listen">🔊</button>
             </div>
-        </section>
+        `;
+        chatBox.scrollTop = chatBox.scrollHeight;
+        
+        speakResponse(reply);
+    }, 400);
+}
 
-        <!-- Section 2: Customer Support Agent with Voice & Multilingual Support -->
-        <section class="bg-cardbg p-5 rounded-xl border border-slate-800 shadow flex flex-col">
-            <h2 class="text-lg font-semibold text-cyan-300 mb-1">💬 Customer Support Agent</h2>
-            <p class="text-xs text-slate-400 mb-4">Ask about shipment status (e.g., SHIP001) or pincode coverage in your preferred language.</p>
-            
-            <div id="chatBox" class="flex-1 bg-slate-900 border border-slate-800 rounded p-3 h-64 overflow-y-auto space-y-2 text-xs text-slate-300 flex flex-col">
+async function generateAdvancedAgentResponse(query) {
+    const upperQuery = query.toUpperCase();
+
+    if (chatState.step === 'ASK_NAME') {
+        chatState.userName = query.trim();
+        chatState.step = 'ASK_LOCATION';
+        return `Nice to meet you, <strong>${escapeHtml(chatState.userName)}</strong>! May I know your current location or city?`;
+    }
+
+    if (chatState.step === 'ASK_LOCATION') {
+        chatState.userLocation = query.trim();
+        chatState.step = 'ASK_INTENT';
+        return `Got it, from <strong>${escapeHtml(chatState.userLocation)}</strong>. What is the main purpose today? (e.g., checking shipment <strong>SHIP001</strong>, pincode, or route)`;
+    }
+
+    if (chatState.step === 'ASK_INTENT') {
+        chatState.userIntent = query.trim();
+        chatState.step = 'READY';
+        return `Thank you, ${escapeHtml(chatState.userName)}. I'm ready! You can now ask about tracking IDs like <strong>SHIP001</strong> or delivery pincodes.`;
+    }
+
+    if (upperQuery.includes('SHIP')) {
+        const shipments = await DB.fetchShipments();
+        const found = shipments.find(s => upperQuery.includes(s.tracking_id.toUpperCase()));
+        
+        if (found) {
+            return `📦 <strong>Shipment (${found.tracking_id}):</strong> Status: <span class="text-cyan-400">${found.status}</span>, Carrier: ${found.carrier_id}, Location: ${found.current_location}`;
+        } else {
+            return `❌ Sorry ${escapeHtml(chatState.userName)}, tracking ID not found. Try asking for <strong>SHIP001</strong>.`;
+        }
+    }
+
+    if (/\d{6}/.test(query)) {
+        const pinMatch = query.match(/\d{6}/)[0];
+        const carriers = await DB.fetchCarriers();
+        const servicing = carriers.filter(c => c.serviced_pincodes.includes(pinMatch));
+
+        if (servicing.length > 0) {
+            const names = servicing.map(c => c.carrier_name).join(', ');
+            return `✅ Pincode <strong>${pinMatch}</strong> is serviced by: <span class="text-emerald-400">${names}</span>.`;
+        } else {
+            return `⚠️ Pincode <strong>${pinMatch}</strong> has limited coverage.`;
+        }
+    }
+
+    return `How else can I help you today, ${escapeHtml(chatState.userName)}?`;
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const chatBox = document.getElementById('chatBox');
+    if (chatBox) {
+        const hour = new Date().getHours();
+        let timeGreeting = hour < 12 ? "Good Morning" : (hour < 18 ? "Good Afternoon" : "Good Evening");
+
+        setTimeout(() => {
+            const greetingText = `🤖 ${timeGreeting}! Welcome to AxomOps AI Logistics. May I know your name please?`;
+            chatBox.innerHTML += `
                 <div class="bg-slate-800 text-slate-300 p-2 rounded max-w-[85%] text-xs self-start">
-                    Hello! Ask me about tracking ID <span class="text-cyan-400">SHIP001</span>, <span class="text-cyan-400">SHIP002</span>, <span class="text-cyan-400">SHIP003</span> or delivery pincodes.
+                    ${greetingText}
                 </div>
-            </div>
+            `;
+            chatState.step = 'ASK_NAME';
+            speakResponse(greetingText);
+        }, 500);
+    }
+});
 
-            <!-- Voice Controls & Input Section -->
-            <div class="flex items-center gap-2 mt-3">
-                <select id="chatLanguage" class="bg-slate-900 text-cyan-200 text-xs p-2 rounded border border-slate-700 outline-none">
-                    <option value="en-US">English</option>
-                    <option value="as-IN">অসমীয়া</option>
-                    <option value="hi-IN">हिन्दी</option>
-                </select>
-                <input type="text" id="chatInput" placeholder="Type query or speak..." onkeypress="if(event.key==='Enter') handleChatQuery()" class="flex-1 bg-slate-900 text-slate-100 text-xs p-2 rounded border border-slate-700 outline-none">
-                <button onclick="toggleVoiceInput()" id="micBtn" class="bg-slate-800 hover:bg-slate-700 text-cyan-400 p-2 rounded text-xs border border-slate-700 transition" title="Voice Input">🎤</button>
-                <button onclick="handleChatQuery()" class="bg-cyan-600 hover:bg-cyan-500 text-white text-xs px-3 py-2 rounded transition">Send</button>
-            </div>
-        </section>
-
-        <!-- Section 3: Self-Learning Update Log -->
-        <section class="bg-cardbg p-5 rounded-xl border border-slate-800 shadow flex flex-col">
-            <div class="flex justify-between items-center mb-2">
-                <h2 class="text-lg font-semibold text-cyan-300">🔄 Self-Learning Update Log</h2>
-                <button onclick="loadUpdateLogs()" class="text-xs text-cyan-400 hover:underline">Refresh Logs</button>
-            </div>
-            <p class="text-xs text-slate-400 mb-3">Audit trail of weekly automated data refreshes and score adjustments.</p>
-            <div id="updateLogBox" class="flex-1 bg-slate-900 border border-slate-800 rounded p-3 h-64 overflow-y-auto text-xs text-slate-300">
-                <span class="text-slate-500 italic">No automated updates recorded yet.</span>
-            </div>
-        </section>
-    </main>
-
-    <footer class="bg-cardbg border-t border-slate-800 p-4 text-center text-xs text-slate-500">
-        AxomOps AI Logistics Agent Module &bull; Static Heuristic Engine v1.0
-    </footer>
-
-    <script src="js/db.js"></script>
-    <script src="js/routeOptimizer.js"></script>
-    <script src="js/customerAgent.js"></script>
-    <script src="js/updateLogger.js"></script>
-</body>
-</html>
+function escapeHtml(text) {
+    const map = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' };
+    return text.replace(/[&<>"']/g, function(m) { return map[m]; });
+}
