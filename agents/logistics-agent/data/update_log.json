@@ -1,2 +1,26 @@
-[]
-
+[
+  {
+    "timestamp": "2026-08-31T00:11:12.978Z",
+    "carrier_id": "CARR_A",
+    "action": "score_refresh",
+    "old_score": 92,
+    "new_score": 90,
+    "message": "Refreshed score from 92 to 90"
+  },
+  {
+    "timestamp": "2026-08-31T00:11:12.978Z",
+    "carrier_id": "CARR_B",
+    "action": "score_refresh",
+    "old_score": 88,
+    "new_score": 89,
+    "message": "Refreshed score from 88 to 89"
+  },
+  {
+    "timestamp": "2026-08-31T00:11:12.978Z",
+    "carrier_id": "CARR_C",
+    "action": "score_refresh",
+    "old_score": 85,
+    "new_score": 83,
+    "message": "Refreshed score from 85 to 83"
+  }
+]
